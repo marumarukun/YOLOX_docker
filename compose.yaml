@@ -1,0 +1,20 @@
+services:
+  yolox:
+    container_name: yolox
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: yolox
+    shm_size: '32gb'
+    volumes:
+      - type: bind
+        source: $PWD
+        target: /workspace
+    working_dir: /workspace
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              capabilities: [ gpu ]
+    tty: true
